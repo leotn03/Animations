@@ -27,6 +27,30 @@ extension AnyTransition {
     }
 }
 
+struct CustomTransitionContentView: View {
+    @State private var isShowingRed = false
+    
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(.blue)
+                .frame(width:200, height: 200)
+            
+            if isShowingRed {
+                Rectangle()
+                    .fill(.red)
+                    .frame(width: 200, height: 200)
+                    .transition(.pivot)
+            }
+        }
+        .onTapGesture {
+            withAnimation {
+                isShowingRed.toggle()
+            }
+        }
+    }
+}
+
 struct TransitionsContentView: View {
     @State private var isShowingRed = false
 
@@ -200,8 +224,9 @@ struct ContentView: View {
     }
 }
 #Preview {
+    CustomTransitionContentView()
     //TransitionsContentView()
-    SnakeLettersContentView()
+    //SnakeLettersContentView()
     //AnimatingGesturesContentView()
     //ControllingTheAnimationStackContentView()
     //ExplicitAnimationContentView()
